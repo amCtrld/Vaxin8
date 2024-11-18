@@ -1,13 +1,17 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-export default function NavBar() {
+export default function NavBar({ role }) {
+  const router = useRouter();
+
+  if (role !== 'Medical Staff') return null; // Hide navbar for patients
+
   return (
-    <nav className="bg-blue-600 p-4 text-white flex justify-center">
-      <Link href="/" className="mx-4">Dashboard</Link>
-      <Link href="/vaccine" className="mx-4">Add Vaccine</Link>
-      <Link href="/patient" className="mx-4">Add Patient</Link>
-      <Link href="/all-vaccines" className="mx-4">All Vaccines</Link>
-      <Link href="/all-patients" className="mx-4">All Patients</Link>
+    <nav className="bg-blue-600 text-white p-4">
+      <div className="flex gap-4">
+        <button onClick={() => router.push('/dashboard')}>Dashboard</button>
+        <button onClick={() => router.push('/all-vaccines')}>All Vaccines</button>
+        <button onClick={() => router.push('/all-patients')}>All Patients</button>
+      </div>
     </nav>
   );
 }

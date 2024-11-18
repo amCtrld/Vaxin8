@@ -1,37 +1,58 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-export default function Dashboard() {
-  const [totalPatients, setTotalPatients] = useState(0);
-  const [totalVaccines, setTotalVaccines] = useState(0);
+export default function Login() {
+  const [role, setRole] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
 
-  useEffect(() => {
-    // Load data from session storage on mount
-    const patients = JSON.parse(sessionStorage.getItem('patients')) || [];
-    const vaccines = JSON.parse(sessionStorage.getItem('vaccines')) || [];
-    
-    setTotalPatients(patients.length);
-    setTotalVaccines(vaccines.length);
-  }, []);
+  const handleLogin = () => {
+    if (role === 'Medical Staff') {
+      if (password === 'Staff001') {
+        router.push('/dashboard'); // Redirect to Dashboard
+      } else {
+        alert('Invalid password for Medical Staff.');
+      }
+    } else if (role === 'Patient') {
+      const patients = JSON.parse(sessionStorage.getItem('patients')) || [];
+      const patient = patients.find((p) => p.password === password);
+
+      if (patient) {
+        router.push(`/patient/${patient.password}`); // Redirect to Patient Page
+      } else {
+        alert('Invalid password. Please try again.');
+      }
+    } else {
+      alert('Please select a role.');
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold mb-6">Vaccine Tracking Dashboard</h1>
-      
-      <div className="flex flex-col md:flex-row gap-6 items-center">
-        <div className="bg-white shadow-lg rounded-lg p-6 w-64 text-center">
-          <h2 className="text-xl font-semibold text-gray-700">Total Patients</h2>
-          <p className="text-4xl font-bold text-blue-500 mt-2">{totalPatients}</p>
-        </div>
-        
-        <div className="bg-white shadow-lg rounded-lg p-6 w-64 text-center">
-          <h2 className="text-xl font-semibold text-gray-700">Total Vaccines</h2>
-          <p className="text-4xl font-bold text-green-500 mt-2">{totalVaccines}</p>
-        </div>
-      </div>
-      
-      <div className="mt-8 flex gap-4">
-        <a href="/vaccine" className="bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600">Add Vaccine</a>
-        <a href="/patient" className="bg-green-500 text-white py-2 px-4 rounded-md shadow hover:bg-green-600">Add Patient</a>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-3xl font-bold mb-6">Login</h1>
+      <div className="space-y-4">
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="p-2 border rounded w-full"
+        >
+          <option value="">Select Role</option>
+          <option value="Medical Staff">Medical Staff</option>
+          <option value="Patient">Patient</option>
+        </select>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="p-2 border rounded w-full"
+        />
+        <button
+          onClick={handleLogin}
+          className="w-full bg-blue-600 text-white p-2 rounded"
+        >
+          Login
+        </button>
       </div>
     </div>
   );
