@@ -18,8 +18,15 @@ export default function VaccinePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
-      <h1 className="text-2xl font-bold mb-6">Add Vaccine</h1>
+    <div
+      className="min-h-screen flex flex-col items-center py-10"
+      style={{
+        backgroundImage: "url('../images/vax.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <h1 className="text-2xl font-bold text-white mb-6">Add Vaccine</h1>
       <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
         <label className="block mb-2 font-medium">Vaccine Name</label>
         <input
@@ -44,13 +51,13 @@ export default function VaccinePage() {
         />
         <button
           onClick={handleAddVaccine}
-          className="bg-blue-500 text-white px-6 py-2 rounded w-full"
+          className="bg-blue-500 text-white px-6 py-2 rounded w-full mb-2"
         >
           Add Vaccine
         </button>
         <button
           onClick={() => router.push('/dashboard')}
-          className="mt-4 bg-gray-500 text-white px-6 py-2 rounded w-full"
+          className="bg-gray-500 text-white px-6 py-2 rounded w-full"
         >
           Return to Dashboard
         </button>

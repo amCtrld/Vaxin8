@@ -6,7 +6,7 @@ export default function NavBar({ role }) {
   if (role !== 'Medical Staff') return null; // Hide navbar for patients
 
   return (
-    <nav className="bg-blue-600 text-white p-4">
+    <nav className="bg-blue-300 text-white p-4">
       <div className="flex gap-4">
         <button onClick={() => router.push('/dashboard')}>Dashboard</button>
         <button onClick={() => router.push('/all-vaccines')}>All Vaccines</button>

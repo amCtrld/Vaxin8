@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function AllVaccines() {
   const [vaccines, setVaccines] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     const storedVaccines = JSON.parse(sessionStorage.getItem('vaccines')) || [];
@@ -9,31 +11,54 @@ export default function AllVaccines() {
   }, []);
 
   return (
-    <div className="min-h-screen p-4 bg-gray-100">
-      <h1 className="text-2xl font-bold text-center mb-6">All Vaccines</h1>
-      
+    <div
+      className="min-h-screen p-4 bg-cover bg-center"
+      style={{ backgroundImage: `url('../images/vax.jpg')` }} // Ensure vax.jpg is placed in the public folder
+    >
+      <h1 className="text-3xl font-bold text-center mb-6 text-white">
+        All Vaccines
+      </h1>
+
       {vaccines.length > 0 ? (
-        <table className="min-w-full bg-white rounded-md shadow-md overflow-hidden mx-auto">
-          <thead>
-            <tr className="bg-blue-600 text-white">
-              <th className="py-2 px-4">Vaccine Name</th>
-              <th className="py-2 px-4">Dose</th>
-              <th className="py-2 px-4">Manufacturer</th>
-            </tr>
-          </thead>
-          <tbody>
-            {vaccines.map((vaccine, index) => (
-              <tr key={index} className="border-b">
-                <td className="py-2 px-4 text-center">{vaccine.name}</td>
-                <td className="py-2 px-4 text-center">{vaccine.dose}</td>
-                <td className="py-2 px-4 text-center">{vaccine.manufacturer}</td>
+        <div className="overflow-auto mx-auto w-4/5 bg-opacity-80 bg-gray-900 rounded-lg shadow-lg">
+          <table className="min-w-full bg-transparent rounded-md">
+            <thead>
+              <tr className="bg-blue-500 text-white">
+                <th className="py-2 px-4">Vaccine Name</th>
+                <th className="py-2 px-4">Doses</th>
+                <th className="py-2 px-4">Manufacturer</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {vaccines.map((vaccine, index) => (
+                <tr
+                  key={index}
+                  className={`${
+                    index % 2 === 0 ? 'bg-blue-100' : 'bg-blue-200'
+                  } text-gray-900 border-b`}
+                >
+                  <td className="py-2 px-4 text-center">{vaccine.name}</td>
+                  <td className="py-2 px-4 text-center">{vaccine.doses}</td>
+                  <td className="py-2 px-4 text-center">
+                    {vaccine.manufacturer}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
-        <p className="text-center text-gray-700 mt-4">No vaccines added yet.</p>
+        <p className="text-center text-white mt-4">
+          No vaccines added yet.
+        </p>
       )}
+
+      <button
+        className="mt-6 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 mx-auto block"
+        onClick={() => router.push('/dashboard')}
+      >
+        Return to Dashboard
+      </button>
     </div>
   );
 }

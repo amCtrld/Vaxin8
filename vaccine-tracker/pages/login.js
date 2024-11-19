@@ -2,56 +2,43 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 export default function Login() {
-  const [role, setRole] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (role === 'Medical Staff') {
-      router.push('/');
-    } else if (role === 'Patient') {
-      const patients = JSON.parse(sessionStorage.getItem('patients')) || [];
-      const patient = patients.find((p) => p.password === password);
-
-      if (patient) {
-        alert(`Welcome, ${patient.patientName}`);
-        router.push('/patient-data'); // Redirect to a patient-specific data page
-      } else {
-        alert('Invalid password!');
-      }
+    // Check if the password is the default one
+    if (password === 'Staff001') {
+      alert('Login Successful!');
+      router.push('/dashboard'); // Redirect to the Dashboard
+    } else {
+      alert('Invalid password!');
     }
   };
 
   return (
-    <div className="min-h-screen p-4 bg-gray-100 flex justify-center items-center">
-      <form onSubmit={handleLogin} className="max-w-md w-full bg-white p-6 rounded shadow-md space-y-4">
-        <h1 className="text-2xl font-bold text-center">Login</h1>
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="block w-full p-2 border rounded"
-          required
-        >
-          <option value="">Select Role</option>
-          <option value="Medical Staff">Medical Staff</option>
-          <option value="Patient">Patient</option>
-        </select>
-        {role === 'Patient' && (
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="block w-full p-2 border rounded"
-            required
-          />
-        )}
-        <button type="submit" className="w-full p-2 bg-blue-600 text-white rounded">
-          Login
-        </button>
-      </form>
+    <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('../images/vax.jpg')" }}>
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-transparent via-blue-500 to-transparent">
+        <div className="bg-white bg-opacity-40 p-6 rounded-lg shadow-lg backdrop-blur-md max-w-md w-full">
+          <h1 className="text-3xl font-bold text-center text-blue-800 mb-4">Welcome to Vaxin8</h1>
+          <p className="text-center text-lg text-blue-800 mb-6">Advancing the human race</p>
+          
+          <form onSubmit={handleLogin} className="space-y-4">
+            <input
+              type="password"
+              placeholder="Enter your password"
+              className="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-800"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button type="submit" className="w-full py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
