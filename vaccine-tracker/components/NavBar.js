@@ -39,6 +39,16 @@ export default function NavBar({ role }) {
           All Patients
         </button>
         <button
+          onClick={() => router.push('/attendance')}
+          className={`py-2 px-4 rounded transition ${
+            router.pathname === '/attendance'
+              ? 'bg-blue-500 text-white font-bold'
+              : 'hover:bg-blue-400 hover:text-white'
+          }`}
+        >
+          Attendance Checker
+        </button>
+        <button
           onClick={() => router.push('/eligibility')}
           className={`py-2 px-4 rounded transition ${
             router.pathname === '/eligibility'
