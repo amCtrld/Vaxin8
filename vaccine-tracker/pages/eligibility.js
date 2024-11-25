@@ -7,14 +7,30 @@ export default function EligibilityPage() {
   const [recommendation, setRecommendation] = useState('');
   const router = useRouter();
 
+  const conditionMessages = {
+    allergy: 'Consult a doctor before receiving vaccines due to health conditions.',
+    immunocompromised: 'Consult a doctor for specialized vaccine recommendations.',
+    pregnancy: 'Recommended: Tdap and Flu vaccines, consult your doctor.',
+    diabetes: 'Recommended: Annual Flu vaccine and consider Pneumococcal vaccines.',
+    amputation: 'Consult a doctor for vaccine recommendations based on your specific condition.',
+  };
+  
   const handleCheckEligibility = () => {
     let recommendationMessage = 'Eligible for all vaccines.';
+    
     if (age < 12) {
       recommendationMessage = 'Eligible for pediatric vaccines only.';
-    } else if (healthCondition.toLowerCase().includes('allergy')) {
-      recommendationMessage =
-        'Consult a doctor before receiving vaccines due to health conditions.';
+    } else if (age > 65) {
+      recommendationMessage = 'Recommended: Flu and Pneumococcal vaccines.';
+    } else {
+      for (const [condition, message] of Object.entries(conditionMessages)) {
+        if (healthCondition.toLowerCase().includes(condition)) {
+          recommendationMessage = message;
+          break;
+        }
+      }
     }
+    
     setRecommendation(recommendationMessage);
   };
 
