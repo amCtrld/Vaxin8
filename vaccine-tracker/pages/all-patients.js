@@ -43,7 +43,7 @@ export default function AllPatients() {
                 >
                   <td className="py-2 px-4 text-center">{patient.name}</td>
                   <td className="py-2 px-4 text-center">{patient.age}</td>
-                  <td className="py-2 px-4 text-center">{patient.sex}</td>
+                  <td className="py-2 px-4 text-center">{patient.Gender}</td>
                   <td className="py-2 px-4 text-center">
                     {patient.bloodGroup}
                   </td>
