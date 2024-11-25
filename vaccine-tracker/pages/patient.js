@@ -43,7 +43,7 @@ export default function PatientPage() {
             <tr key={index} className="border-t">
               <td className="p-4">{patient.name}</td>
               <td className="p-4">{patient.vaccine}</td>
-              <td className="p-4">{patient.gender}</td>
+              <td className="p-4">{patient.Gender}</td>
               <td className="p-4">{patient.bloodGroup}</td>
             </tr>
           ))}

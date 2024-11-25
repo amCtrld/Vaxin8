@@ -44,7 +44,12 @@ const Attendance = () => {
     };
 
     emailjs
-      .send('service_i815cit', 'template_8791p6o', templateParams, 'xW0rpdTWXp35bZiAt')
+      .send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID, // Use service ID from .env.local
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_REM, // Use template ID from .env.local
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_USER_ID // Use user ID from .env.local
+      )
       .then(() => {
         alert(`Reminder sent to ${patient.name}!`);
       })

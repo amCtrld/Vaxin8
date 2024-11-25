@@ -3,7 +3,7 @@ import emailjs from 'emailjs-com';
 
 export default function AddPatientForm({ onPatientAdded }) {
   const [name, setName] = useState('');
-  const [sex, setSex] = useState('');
+  const [Gender, setGender] = useState('');
   const [age, setAge] = useState('');
   const [medicalHistory, setMedicalHistory] = useState('');
   const [bloodGroup, setBloodGroup] = useState('');
@@ -49,7 +49,7 @@ export default function AddPatientForm({ onPatientAdded }) {
 
     const newPatient = {
       name,
-      sex,
+      Gender,
       age,
       medicalHistory,
       bloodGroup,
@@ -76,24 +76,25 @@ export default function AddPatientForm({ onPatientAdded }) {
     };
 
     emailjs
-      .send(
-        'service_i815cit', // Replace with your EmailJS service ID
-        'template_igyzlpf', // Replace with your EmailJS template ID
-        emailContent,
-        'xW0rpdTWXp35bZiAt' // Replace with your EmailJS user ID
-      )
-      .then(() => {
-        alert('Patient added and email sent successfully!');
-        onPatientAdded(newPatient); // Update parent component
-      })
-      .catch((err) => {
-        alert('Failed to send email. Please try again.');
-        console.error(err);
-      });
+  .send(
+    process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID, // EmailJS service ID from .env.local
+    process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, // EmailJS template ID from .env.local
+    emailContent,
+    process.env.NEXT_PUBLIC_EMAILJS_USER_ID // EmailJS user ID from .env.local
+  )
+  .then(() => {
+    alert('Patient added and email sent successfully!');
+    onPatientAdded(newPatient); // Update parent component
+  })
+  .catch((err) => {
+    alert('Failed to send email. Please try again.');
+    console.error(err);
+  });
+
 
     // Reset form
     setName('');
-    setSex('');
+    setGender('');
     setAge('');
     setMedicalHistory('');
     setBloodGroup('');
@@ -113,14 +114,14 @@ export default function AddPatientForm({ onPatientAdded }) {
         className="w-full p-2 mb-4 border rounded"
         required
       />
-      <label className="block mb-2 font-medium">Sex</label>
+      <label className="block mb-2 font-medium">Gender</label>
       <select
-        value={sex}
-        onChange={(e) => setSex(e.target.value)}
+        value={Gender}
+        onChange={(e) => setGender(e.target.value)}
         className="w-full p-2 mb-4 border rounded"
         required
       >
-        <option value="" disabled>Select sex</option>
+        <option value="" disabled>Select Gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
       </select>
