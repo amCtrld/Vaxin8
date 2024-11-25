@@ -58,6 +58,16 @@ export default function NavBar({ role }) {
         >
           Vaccine Eligibility
         </button>
+        <button
+          onClick={() => router.push('/all-centers')}
+          className={`py-2 px-4 rounded transition ${
+            router.pathname === '/all-centers'
+              ? 'bg-blue-500 text-white font-bold'
+              : 'hover:bg-blue-400 hover:text-white'
+          }`}
+        >
+          All Centers
+        </button>
       </div>
     </nav>
   );

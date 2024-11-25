@@ -75,14 +75,14 @@ const handleSendReminder = (patient) => {
           </div>
 
           {/* Patient Table */}
-          <div className="overflow-x-auto bg-white/60 backdrop-blur-lg rounded-lg shadow-xl mb-6">
+          <div className="overflow-x-auto backdrop-blur-lg rounded-lg shadow-xl mb-6 bg-white/60 text-black">
             <table className="min-w-full table-auto">
               <thead>
                 <tr>
-                  <th className="px-4 py-2 border text-white">Name</th>
-                  <th className="px-4 py-2 border text-white">Vaccine</th>
-                  <th className="px-4 py-2 border text-white">Attendance</th>
-                  <th className="px-4 py-2 border text-white">Reminder</th>
+                  <th className="px-4 py-2 border text-black">Name</th>
+                  <th className="px-4 py-2 border text-black">Vaccine</th>
+                  <th className="px-4 py-2 border text-black">Attendance</th>
+                  <th className="px-4 py-2 border text-black">Reminder</th>
                 </tr>
               </thead>
               <tbody>
@@ -113,7 +113,7 @@ const handleSendReminder = (patient) => {
 
             {/* Attended Patients */}
             <div className="mt-6">
-              <h3 className="text-xl font-semibold text-white">Attended Patients</h3>
+              <h3 className="text-xl font-semibold text-black px-4">Attended Patients</h3>
               <ul>
                 {attendedPatients.map((patient, index) => (
                   <li key={index} className="flex justify-between items-center py-2">
