@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import emailjs from 'emailjs-com'; // Import EmailJS
+import emailjs from 'emailjs-com';
 
 const Attendance = () => {
   const [value, setValue] = useState(new Date());
@@ -24,30 +24,28 @@ const Attendance = () => {
     if (patient.attended) {
       setAttendedPatients([...attendedPatients, patient]);
     } else {
-      setAttendedPatients(attendedPatients.filter(p => p !== patient));
+      setAttendedPatients(attendedPatients.filter((p) => p !== patient));
     }
     setPatients(updatedPatients);
   };
 
   // Function to send reminder email via EmailJS
-const handleSendReminder = (patient) => {
-    // Extract the vaccine and dates from the patient data
+  const handleSendReminder = (patient) => {
     const vaccine = patient.vaccine;
-    const doseDates = patient.doseDates.join(', ');  // Join dates into a string (in case there are multiple)
-  
+    const center = patient.center || 'No center assigned'; // Default if center is missing
+    const doseDates = patient.doseDates.join(', '); // Join dates into a string
+
     const templateParams = {
       to_name: patient.name,
       to_email: patient.email,
-      subject: 'Vaccine Appointment Reminder',
-      message: `Dear ${patient.name},\n\nThis is a reminder for your upcoming vaccine appointment on ${doseDates}.\n\nThank you!`,
-      vaccine: vaccine,  // Add vaccine type
-      dates: doseDates,  // Add vaccine dates
+      vaccine,
+      dates: doseDates,
+      center_name: center,
     };
-  
-    // Use EmailJS to send the email
-    emailjs.send('service_i815cit', 'template_8791p6o', templateParams, 'xW0rpdTWXp35bZiAt')
-      .then((response) => {
-        console.log('Email successfully sent:', response);
+
+    emailjs
+      .send('service_i815cit', 'template_8791p6o', templateParams, 'xW0rpdTWXp35bZiAt')
+      .then(() => {
         alert(`Reminder sent to ${patient.name}!`);
       })
       .catch((error) => {
@@ -55,17 +53,18 @@ const handleSendReminder = (patient) => {
         alert('Failed to send reminder email. Please try again later.');
       });
   };
-  
 
   const filteredPatients = patients.filter((patient) => {
     const selectedDate = value.toLocaleDateString();
-    return patient.doseDates.some(date => new Date(date).toLocaleDateString() === selectedDate);
+    return patient.doseDates.some((date) => new Date(date).toLocaleDateString() === selectedDate);
   });
 
   return (
-    <div className="bg-cover bg-center h-screen" style={{ backgroundImage: "url('../images/vax.jpg')" }}>
+    <div
+      className="bg-cover bg-center h-screen"
+      style={{ backgroundImage: "url('../images/vax.jpg')" }}
+    >
       <div className="flex items-center justify-center h-full">
-        {/* Glassy Container */}
         <div className="w-full sm:w-11/12 md:w-8/12 lg:w-6/12 xl:w-5/12 bg-white/40 backdrop-blur-lg rounded-lg shadow-lg p-8">
           <h2 className="text-4xl text-white font-semibold text-center mb-6">Attendance Tracker</h2>
 
@@ -110,25 +109,12 @@ const handleSendReminder = (patient) => {
                 ))}
               </tbody>
             </table>
-
-            {/* Attended Patients */}
-            <div className="mt-6">
-              <h3 className="text-xl font-semibold text-black px-4">Attended Patients</h3>
-              <ul>
-                {attendedPatients.map((patient, index) => (
-                  <li key={index} className="flex justify-between items-center py-2">
-                    <span>{patient.name}</span>
-                    <span>{patient.vaccine}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
 
           {/* Return Button */}
           <div className="mt-6 text-center">
             <button
-              onClick={() => window.location.href = '/dashboard'} // Redirect to dashboard
+              onClick={() => (window.location.href = '/dashboard')}
               className="px-6 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700"
             >
               Return to Dashboard
