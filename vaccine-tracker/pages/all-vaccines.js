@@ -10,6 +10,13 @@ export default function AllVaccines() {
     setVaccines(storedVaccines);
   }, []);
 
+  // Function to remove a vaccine
+  const handleRemoveVaccine = (vaccineIndex) => {
+    const updatedVaccines = vaccines.filter((_, index) => index !== vaccineIndex);
+    sessionStorage.setItem('vaccines', JSON.stringify(updatedVaccines));
+    setVaccines(updatedVaccines); // Update the state to reflect the changes
+  };
+
   return (
     <div
       className="min-h-screen p-4 bg-cover bg-center"
@@ -27,7 +34,8 @@ export default function AllVaccines() {
                 <th className="py-2 px-4">Vaccine Name</th>
                 <th className="py-2 px-4">Doses</th>
                 <th className="py-2 px-4">Manufacturer</th>
-                <th className="py-2 px-4">Expiry Date</th> {/* Add expiry date column */}
+                <th className="py-2 px-4">Expiry Date</th>
+                <th className="py-2 px-4">Actions</th> {/* New column for the Remove button */}
               </tr>
             </thead>
             <tbody>
@@ -41,7 +49,15 @@ export default function AllVaccines() {
                   <td className="py-2 px-4 text-center">{vaccine.name}</td>
                   <td className="py-2 px-4 text-center">{vaccine.doses}</td>
                   <td className="py-2 px-4 text-center">{vaccine.manufacturer}</td>
-                  <td className="py-2 px-4 text-center">{vaccine.expiryDate || 'N/A'}</td> {/* Display expiry date */}
+                  <td className="py-2 px-4 text-center">{vaccine.expiryDate || 'N/A'}</td>
+                  <td className="py-2 px-4 text-center">
+                    <button
+                      onClick={() => handleRemoveVaccine(index)} // Remove vaccine when clicked
+                      className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                    >
+                      Remove
+                    </button>
+                  </td> {/* Remove button */}
                 </tr>
               ))}
             </tbody>
