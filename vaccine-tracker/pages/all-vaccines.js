@@ -27,6 +27,7 @@ export default function AllVaccines() {
                 <th className="py-2 px-4">Vaccine Name</th>
                 <th className="py-2 px-4">Doses</th>
                 <th className="py-2 px-4">Manufacturer</th>
+                <th className="py-2 px-4">Expiry Date</th> {/* Add expiry date column */}
               </tr>
             </thead>
             <tbody>
@@ -39,9 +40,8 @@ export default function AllVaccines() {
                 >
                   <td className="py-2 px-4 text-center">{vaccine.name}</td>
                   <td className="py-2 px-4 text-center">{vaccine.doses}</td>
-                  <td className="py-2 px-4 text-center">
-                    {vaccine.manufacturer}
-                  </td>
+                  <td className="py-2 px-4 text-center">{vaccine.manufacturer}</td>
+                  <td className="py-2 px-4 text-center">{vaccine.expiryDate || 'N/A'}</td> {/* Display expiry date */}
                 </tr>
               ))}
             </tbody>

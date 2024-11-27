@@ -6,6 +6,7 @@ export default function VaccinePage() {
   const [manufacturer, setManufacturer] = useState('');
   const [doses, setDoses] = useState('');
   const [centers, setCenters] = useState('');
+  const [expiryDate, setExpiryDate] = useState(''); // New state for expiry date
   const router = useRouter();
 
   const handleAddVaccine = () => {
@@ -14,13 +15,15 @@ export default function VaccinePage() {
       name: vaccineName, 
       manufacturer, 
       doses: parseInt(doses, 10), 
-      centers: centers.split(',').map((center) => center.trim()) 
+      centers: centers.split(',').map((center) => center.trim()),
+      expiryDate, // Add expiry date to the vaccine object
     };
     sessionStorage.setItem('vaccines', JSON.stringify([...existingVaccines, newVaccine]));
     setVaccineName('');
     setManufacturer('');
     setDoses('');
     setCenters('');
+    setExpiryDate(''); // Reset expiry date
     alert('Vaccine and centers added successfully!');
   };
 
@@ -55,6 +58,13 @@ export default function VaccinePage() {
           type="text"
           value={centers}
           onChange={(e) => setCenters(e.target.value)}
+          className="w-full p-2 mb-4 border rounded"
+        />
+        <label className="block mb-2 font-medium">Expiry Date</label>
+        <input
+          type="date"
+          value={expiryDate}
+          onChange={(e) => setExpiryDate(e.target.value)}
           className="w-full p-2 mb-4 border rounded"
         />
         <button onClick={handleAddVaccine} className="bg-blue-500 text-white px-6 py-2 rounded w-full mb-2">Add Vaccine</button>
