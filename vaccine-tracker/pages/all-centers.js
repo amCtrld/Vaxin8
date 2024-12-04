@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import NavBar from '../components/NavBar';
 import { useRouter } from 'next/router';
 
 export default function AllCenters() {
@@ -12,6 +13,7 @@ export default function AllCenters() {
 
   return (
     <div className="min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('../images/vax.jpg')" }}>
+      <NavBar role="Medical Staff" />
       <div className="flex flex-col items-center py-10">
         <h1 className="text-2xl font-bold text-white mb-6">All Vaccine Centers</h1>
         <div className="bg-white/40 backdrop-blur-md p-6 rounded shadow-md w-full max-w-4xl">

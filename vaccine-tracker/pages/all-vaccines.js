@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import NavBar from '../components/NavBar';
 import { useRouter } from 'next/router';
 
 export default function AllVaccines() {
@@ -22,6 +23,7 @@ export default function AllVaccines() {
       className="min-h-screen p-4 bg-cover bg-center"
       style={{ backgroundImage: `url('../images/vax.jpg')` }} // Ensure vax.jpg is placed in the public folder
     >
+      <NavBar role="Medical Staff" />
       <h1 className="text-3xl font-bold text-center mb-6 text-white">
         All Vaccines
       </h1>

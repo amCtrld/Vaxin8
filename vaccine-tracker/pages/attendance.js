@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import NavBar from '../components/NavBar';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import emailjs from 'emailjs-com';
@@ -68,7 +69,7 @@ const Attendance = () => {
     <div
       className="bg-cover bg-center h-screen"
       style={{ backgroundImage: "url('../images/vax.jpg')" }}
-    >
+    ><NavBar role="Medical Staff" />
       <div className="flex items-center justify-center h-full">
         <div className="w-full sm:w-11/12 md:w-8/12 lg:w-6/12 xl:w-5/12 bg-white/40 backdrop-blur-lg rounded-lg shadow-lg p-8">
           <h2 className="text-4xl text-white font-semibold text-center mb-6">Attendance Tracker</h2>

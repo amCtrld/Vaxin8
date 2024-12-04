@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import NavBar from '../components/NavBar';
 import { useRouter } from 'next/router';
 
 export default function EligibilityPage() {
@@ -39,6 +40,7 @@ export default function EligibilityPage() {
       className="min-h-screen bg-cover bg-center py-10 px-4 flex items-center justify-center"
       style={{ backgroundImage: "url('../images/vax.jpg')" }}
     >
+      
       <div className="bg-white bg-opacity-80 backdrop-blur-md rounded-lg shadow-md p-6 max-w-lg w-full">
         <h1 className="text-2xl font-bold text-center text-blue-800 mb-6">
           Vaccine Eligibility Check
