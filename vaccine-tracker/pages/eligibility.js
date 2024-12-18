@@ -37,11 +37,13 @@ export default function EligibilityPage() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center py-10 px-4 flex items-center justify-center"
-      style={{ backgroundImage: "url('../images/vax.jpg')" }}
-    >
+    className="bg-cover bg-center h-screen"
+    style={{ backgroundImage: "url('../images/vax.jpg')" }}
+  >
+      <NavBar role="Medical Staff" />
       
-      <div className="bg-white bg-opacity-80 backdrop-blur-md rounded-lg shadow-md p-6 max-w-lg w-full">
+      <div className="flex items-center justify-center h-full">
+        <div className="w-full sm:w-11/12 md:w-8/12 lg:w-6/12 xl:w-5/12 bg-white/40 backdrop-blur-lg rounded-lg shadow-lg p-8">
         <h1 className="text-2xl font-bold text-center text-blue-800 mb-6">
           Vaccine Eligibility Check
         </h1>
@@ -100,6 +102,7 @@ export default function EligibilityPage() {
         >
           Return to Dashboard
         </button>
+        </div>
       </div>
     </div>
   );
